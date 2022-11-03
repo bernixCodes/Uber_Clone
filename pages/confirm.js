@@ -8,8 +8,7 @@ const Confirm = () => {
   const [pickupCoordinate, setPickupCoordinate] = useState("");
   const [dropoffCoordinate, setDropoffCoordinate] = useState("");
 
-  const getPickupCoordinate = () => {
-    // const pickup = "Berekum";
+  const getPickupCoordinate = (pickup) => {
     fetch(
       `https://api.mapbox.com/geocoding/v5/mapbox.places/${pickup}.json?access_token=pk.eyJ1IjoiYmVybmljZW1hcHMiLCJhIjoiY2w5dmx1MXRhMDZiNjNwbnNrenJ0aHJxMSJ9.O5qKYQ60zYh_Ppqtzi71cg&limit=1`
     )
@@ -18,8 +17,7 @@ const Confirm = () => {
         setPickupCoordinate(data.features[0].center);
       });
   };
-  const getDropoffCoordinate = () => {
-    // const dropoff = "Koforidua";
+  const getDropoffCoordinate = (dropoff) => {
     fetch(
       `https://api.mapbox.com/geocoding/v5/mapbox.places/${dropoff}.json?access_token=pk.eyJ1IjoiYmVybmljZW1hcHMiLCJhIjoiY2w5dmx1MXRhMDZiNjNwbnNrenJ0aHJxMSJ9.O5qKYQ60zYh_Ppqtzi71cg&limit=1`
     )
@@ -29,16 +27,16 @@ const Confirm = () => {
       });
   };
   useEffect(() => {
-    getPickupCoordinate();
-    getDropoffCoordinate();
-  }, []);
+    getPickupCoordinate(pickup);
+    getDropoffCoordinate(dropoff);
+  }, [pickup, dropoff]);
   return (
     <div className="h-screen flex flex-col">
       <Map
         pickupCoordinate={pickupCoordinate}
         dropoffCoordinate={dropoffCoordinate}
       />
-      <div className="flex-1">hiii</div>
+      <div className="flex-1">Available cars</div>
     </div>
   );
 };
