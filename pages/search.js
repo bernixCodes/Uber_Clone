@@ -4,8 +4,12 @@ import { GrFormAdd } from "react-icons/gr";
 import { AiOutlineStar } from "react-icons/ai";
 import Link from "next/link";
 import Head from "next/head";
+import { useState } from "react";
 
 const Search = () => {
+  const [pickup, setPickup] = useState("");
+  const [dropoff, setDropOff] = useState("");
+
   return (
     <>
       <Head>
@@ -41,10 +45,14 @@ const Search = () => {
           <div className="flex flex-col gap-2 flex-1 my-2">
             <input
               placeholder="Enter pickup location"
+              value={pickup}
+              onChange={(e) => setPickup(e.target.value)}
               className="outline-none bg-gray-200 p-2 rounded placeholder:text-gray-400"
             />
             <input
               placeholder="Where to?"
+              value={dropoff}
+              onChange={(e) => setDropOff(e.target.value)}
               className="outline-none bg-gray-200 p-2 rounded placeholder:text-gray-400"
             />
           </div>
@@ -65,9 +73,16 @@ const Search = () => {
         </div>
 
         {/* confirm Location */}
-        <div className="m-3  p-3 text-center text-xl bg-black text-white rounded ">
-          <p className="opacity-75">Confirm Location</p>
-        </div>
+        <Link
+          href={{
+            pathname: "/confirm",
+            query: { pickup: pickup, dropoff: dropoff },
+          }}
+        >
+          <div className="m-3  p-3 text-center text-xl bg-black text-white rounded ">
+            <p className="opacity-75">Confirm Location</p>
+          </div>
+        </Link>
       </div>
     </>
   );
